@@ -27,8 +27,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@sendgrid/client": "^7.7.0",
-    "@sendgrid/helpers": "^7.7.0"
+    "@sendgrid/client": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/client?main",
+    "@sendgrid/helpers": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/helpers?main"
   },
   "tags": [
     "http",
