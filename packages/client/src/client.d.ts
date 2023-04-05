@@ -1,6 +1,6 @@
-import {ResponseError} from "@sendgrid/helpers/classes";
-import {ClientRequest} from "@sendgrid/client/src/request";
-import {ClientResponse} from "@sendgrid/client/src/response";
+import { ResponseError } from "@kobakazu0429/sendgrid-helpers/classes";
+import { ClientRequest } from "@kobakazu0429/sendgrid-client/src/request";
+import { ClientResponse } from "@kobakazu0429/sendgrid-client/src/response";
 
 declare class Client {
   constructor();
@@ -23,12 +23,15 @@ declare class Client {
   /**
    * Set default header
    */
-  setDefaultHeader(key: string | { [s: string]: string }, value ?: string): this;
+  setDefaultHeader(key: string | { [s: string]: string }, value?: string): this;
 
   /**
    * Set default request
    */
-  setDefaultRequest<K extends keyof ClientRequest>(key: K | ClientRequest, value ?: ClientRequest[K]): this;
+  setDefaultRequest<K extends keyof ClientRequest>(
+    key: K | ClientRequest,
+    value?: ClientRequest[K]
+  ): this;
 
   /**
    * Create headers for request
@@ -43,11 +46,14 @@ declare class Client {
   /**
    * Do a request
    */
-  request(data: ClientRequest, cb?: (err: ResponseError, response: [ClientResponse, any]) => void): Promise<[ClientResponse, any]>;
+  request(
+    data: ClientRequest,
+    cb?: (err: ResponseError, response: [ClientResponse, any]) => void
+  ): Promise<[ClientResponse, any]>;
 }
 
 declare const client: Client;
 // @ts-ignore
-export = client
+export = client;
 
-export {Client};
+export { Client };

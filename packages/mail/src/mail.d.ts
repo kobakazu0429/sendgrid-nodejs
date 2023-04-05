@@ -1,7 +1,7 @@
-import {Client} from "@sendgrid/client";
-import {ClientResponse} from "@sendgrid/client/src/response";
-import {ResponseError} from "@sendgrid/helpers/classes";
-import {MailDataRequired} from "@sendgrid/helpers/classes/mail";
+import { Client } from "@kobakazu0429/sendgrid-client";
+import { ClientResponse } from "@kobakazu0429/sendgrid-client/src/response";
+import { ResponseError } from "@kobakazu0429/sendgrid-helpers/classes";
+import { MailDataRequired } from "@kobakazu0429/sendgrid-helpers/classes/mail";
 
 declare class MailService {
   /**
@@ -32,19 +32,26 @@ declare class MailService {
   /**
    * Send email
    */
-  send(data: MailDataRequired | MailDataRequired[], isMultiple?: boolean, cb?: (err: Error | ResponseError, result: [ClientResponse, {}]) => void): Promise<[ClientResponse, {}]>;
+  send(
+    data: MailDataRequired | MailDataRequired[],
+    isMultiple?: boolean,
+    cb?: (err: Error | ResponseError, result: [ClientResponse, {}]) => void
+  ): Promise<[ClientResponse, {}]>;
 
   /**
    * Send multiple emails (shortcut)
    */
-  sendMultiple(data: MailDataRequired, cb?: (error: Error | ResponseError, result: [ClientResponse, {}]) => void): Promise<[ClientResponse, {}]>;
+  sendMultiple(
+    data: MailDataRequired,
+    cb?: (error: Error | ResponseError, result: [ClientResponse, {}]) => void
+  ): Promise<[ClientResponse, {}]>;
 }
 
 declare const mail: MailService;
 // @ts-ignore
 export = mail;
 
-export {MailService};
-export {MailDataRequired};
-export {ClientResponse};
-export {ResponseError};
+export { MailService };
+export { MailDataRequired };
+export { ClientResponse };
+export { ResponseError };
