@@ -1,24 +1,24 @@
-'use strict';
+"use strict";
 
 /**
  * Dependencies
  */
-const {Client} = require('@sendgrid/client');
-const {classes: {Mail}} = require('@sendgrid/helpers');
+const { Client } = require("@kobakazu0429/sendgrid-client");
+const {
+  classes: { Mail },
+} = require("@kobakazu0429/sendgrid-helpers");
 
 /**
  * Mail service class
  */
 class MailService {
-
   /**
    * Constructor
    */
   constructor() {
-
     // Set client, initialize substitution wrappers and secret rules filter.
     this.setClient(new Client());
-    this.setSubstitutionWrappers('{{', '}}');
+    this.setSubstitutionWrappers("{{", "}}");
     this.secretRules = [];
   }
 
@@ -51,19 +51,19 @@ class MailService {
    * Set client timeout
    */
   setTimeout(timeout) {
-    if (typeof timeout === 'undefined') {
+    if (typeof timeout === "undefined") {
       return;
     }
 
-    this.client.setDefaultRequest('timeout', timeout);
+    this.client.setDefaultRequest("timeout", timeout);
   }
 
   /**
    * Set substitution wrappers
    */
   setSubstitutionWrappers(left, right) {
-    if (typeof left === 'undefined' || typeof right === 'undefined') {
-      throw new Error('Must provide both left and right side wrappers');
+    if (typeof left === "undefined" || typeof right === "undefined") {
+      throw new Error("Must provide both left and right side wrappers");
     }
     if (!Array.isArray(this.substitutionWrappers)) {
       this.substitutionWrappers = [];
@@ -85,25 +85,26 @@ class MailService {
     const tmpRules = rules.map(function (rule) {
       const ruleType = typeof rule;
 
-      if (ruleType === 'string') {
+      if (ruleType === "string") {
         return {
           pattern: new RegExp(rule),
         };
-      } else if (ruleType === 'object') {
+      } else if (ruleType === "object") {
         // normalize rule object
         if (rule instanceof RegExp) {
           rule = {
             pattern: rule,
           };
-        } else if (rule.hasOwnProperty('pattern')
-          && (typeof rule.pattern === 'string')
+        } else if (
+          rule.hasOwnProperty("pattern") &&
+          typeof rule.pattern === "string"
         ) {
           rule.pattern = new RegExp(rule.pattern);
         }
 
         try {
           // test if rule.pattern is a valid regex
-          rule.pattern.test('');
+          rule.pattern.test("");
           return rule;
         } catch (err) {
           // continue regardless of error
@@ -120,7 +121,7 @@ class MailService {
    * Check if the e-mail is safe to be sent
    */
   filterSecrets(body) {
-    if ((typeof body === 'object') && !body.hasOwnProperty('content')) {
+    if (typeof body === "object" && !body.hasOwnProperty("content")) {
       return;
     }
 
@@ -128,9 +129,7 @@ class MailService {
 
     body.content.forEach(function (data) {
       self.secretRules.forEach(function (rule) {
-        if (rule.hasOwnProperty('pattern')
-          && !rule.pattern.test(data.value)
-        ) {
+        if (rule.hasOwnProperty("pattern") && !rule.pattern.test(data.value)) {
           return;
         }
 
@@ -140,7 +139,7 @@ class MailService {
           message += `identified by '${rule.name}'`;
         }
 
-        message += ' was found in the Mail content!';
+        message += " was found in the Mail content!";
 
         throw new Error(message);
       });
@@ -151,26 +150,26 @@ class MailService {
    * Send email
    */
   send(data, isMultiple = false, cb) {
-
     //Callback as second parameter
-    if (typeof isMultiple === 'function') {
+    if (typeof isMultiple === "function") {
       cb = isMultiple;
       isMultiple = false;
     }
 
     //Array? Send in parallel
     if (Array.isArray(data)) {
-
       //Create promise
-      const promise = Promise.all(data.map(item => {
-        return this.send(item, isMultiple);
-      }));
+      const promise = Promise.all(
+        data.map((item) => {
+          return this.send(item, isMultiple);
+        })
+      );
 
       //Execute callback if provided
       if (cb) {
         promise
-          .then(result => cb(null, result))
-          .catch(error => cb(error, null));
+          .then((result) => cb(null, result))
+          .catch((error) => cb(error, null));
       }
 
       //Return promise
@@ -179,14 +178,13 @@ class MailService {
 
     //Send mail
     try {
-
       //Append multiple flag to data if not set
-      if (typeof data.isMultiple === 'undefined') {
+      if (typeof data.isMultiple === "undefined") {
         data.isMultiple = isMultiple;
       }
 
       //Append global substitution wrappers if not set in data
-      if (typeof data.substitutionWrappers === 'undefined') {
+      if (typeof data.substitutionWrappers === "undefined") {
         data.substitutionWrappers = this.substitutionWrappers;
       }
 
@@ -199,8 +197,8 @@ class MailService {
 
       //Create request
       const request = {
-        method: 'POST',
-        url: '/v3/mail/send',
+        method: "POST",
+        url: "/v3/mail/send",
         headers: mail.headers,
         body,
       };
@@ -208,7 +206,6 @@ class MailService {
       //Send
       return this.client.request(request, cb);
     } catch (error) {
-
       //Pass to callback if provided
       if (cb) {
         // eslint-disable-next-line callback-return

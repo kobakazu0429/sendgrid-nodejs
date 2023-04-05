@@ -7,6 +7,5 @@ test/config.js
 .vscode/
 prism*
 package-lock.json
-yarn.lock
 *.bak
 .idea/

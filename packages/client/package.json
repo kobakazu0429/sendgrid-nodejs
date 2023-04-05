@@ -1,5 +1,5 @@
 {
-  "name": "@sendgrid/client",
+  "name": "@kobakazu0429/sendgrid-client",
   "description": "Twilio SendGrid NodeJS API client",
   "version": "7.7.0",
   "author": "Twilio SendGrid <help@twilio.com> (sendgrid.com)",
@@ -27,7 +27,7 @@
     "node": "6.* || 8.* || >=10.*"
   },
   "dependencies": {
-    "@sendgrid/helpers": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/helpers?main",
+    "@kobakazu0429/sendgrid-helpers": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/helpers?main",
     "axios": "^0.26.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 {
-  "name": "@sendgrid/mail",
+  "name": "@kobakazu0429/sendgrid-mail",
   "description": "Twilio SendGrid NodeJS mail service",
   "version": "7.7.0",
   "author": "Twilio SendGrid <help@twilio.com> (sendgrid.com)",
@@ -27,8 +27,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@sendgrid/client": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/client?main",
-    "@sendgrid/helpers": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/helpers?main"
+    "@kobakazu0429/sendgrid-client": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/client?main",
+    "@kobakazu0429/sendgrid-helpers": "https://gitpkg.now.sh/kobakazu0429/sendgrid-nodejs/packages/helpers?main"
   },
   "tags": [
     "http",
